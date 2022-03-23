@@ -3,19 +3,33 @@ import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom"
 import "./NavBar.css"
 
-export const NavBar = () => {
+export const NavBar = (props) => {
     const history = useHistory()
     return (
         <ul className="navbar">
-            <li className="navbar__item">
-            <Link>Yoga</Link>
+              <li className="navbar__item active">
+              <Link className="nav-link" to= "/workoutExercises/new">Home</Link>
+              </li>
+            <li className="navbar__item active">
+            <Link className="nav-link" to= "/yoga">Yoga </Link>
             </li>
-            <li className="navbar__item">
-               <Link>Cardio</Link>
+            <li className="navbar__item active">
+            <Link className="nav-link" to= "/cardio">Cardio </Link>
             </li>
-            <li className="navbar__item">
-               <Link>Weight-Training</Link>
+            <li className="navbar__item active">
+            <Link className="nav-link" to= "/weighttraining">Weight-Training </Link>
             </li>
+            <li className="navbar__item active"/>
+         
+        <Link
+          className="navbar__link"
+          to="/login"
+          onClick={() => {
+            localStorage.removeItem("vibrary_user");
+            props.setAuthorizedUser(0);
+          }}
+        /> 
+        
             {
                 (localStorage.getItem("lu_token") !== null) ?
                     <li className="nav-item">

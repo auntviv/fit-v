@@ -22,7 +22,7 @@ export const WorkoutList = (props) => {
                   history.push({ pathname: "/workouts/new" });
                 }}
               >
-                Register New Game
+                Register Workout
               </button>
             </h1>
             <div className="workout__name">
