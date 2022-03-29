@@ -16,6 +16,7 @@ export const createWorkout = (workout) => {
 }
 
 export const getWorkoutTypes = () => {
-    return fetch("", { })
+    return fetch("http://localhost:8000/workouts", { "Authorization": `Token ${localStorage.getItem("lu_token")}`
+})
         .then()
 }

@@ -29,7 +29,7 @@ export const WorkoutList = (props) => {
               This workout is{workout.name}
             </div>
             <div className="workout__organizer">
-              This workout is a {workout.category_id} workout.
+              This workout is a {workout.category} workout.
             </div>
           </section>
         );

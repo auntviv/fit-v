@@ -12,13 +12,16 @@ export const loginUser = (user) => {
     }).then(res => res.json())
 }
 
-export const registerUser = (newUser) => {
+export const registerUser = (user) => {
     return fetch("http://127.0.0.1:8000/register", {
         method: "POST", 
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
         },
-        body: JSON.stringify(newUser)
+        body: JSON.stringify({
+            username: user.username,
+            password: user.password
+        })
     }).then(res => res.json())
 }

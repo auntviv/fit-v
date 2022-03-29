@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
   createWorkoutExercise,
   getWorkoutExercises,
+  getWorkoutExercise,
   getExercises,
-  getWorkouts,
 } from "./WorkoutExerciseManager.js";
 
 export const WorkoutExerciseForm = () => {
@@ -17,93 +17,71 @@ export const WorkoutExerciseForm = () => {
         provide some default values.
     */
   const [currentWorkoutExercise, setCurrentWorkoutExercise] = useState({
-    workout: "",
-    exercise: "",
+    exercise: 0,
     reps: 0,
-    sets: 0
+    sets: 0,
+
+
   });
 
   const history = useHistory();
 
   useEffect(() => {
-    fetch("http://localhost:8000/exercises", {
-        headers:{
-            "Authorization": `Token ${localStorage.getItem("lu_token")}`
-        }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setExercises(data);
-      });
- 
+    getExercises().then((data) => setExercises(data));
   }, []);
-  useEffect(() => {
-    fetch("http://localhost:8000/workouts", {
-        headers:{
-            "Authorization": `Token ${localStorage.getItem("lu_token")}`
-        }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setWorkouts(data);
-      });
- 
-  }, []);
-  const updateWorkoutExerciseState = (domEvent) => {
- 
+
+  const updateWorkoutExerciseState = (evt) => {
+    evt.preventDefault();
+    const copy = { ...currentWorkoutExercise };
+    let key = evt.target.name;
+    copy[key] = evt.target.value;
+    setCurrentWorkoutExercise(copy);
   };
+
+  const params = useParams();
+
+  useEffect(()=> { 
+      (async() => {if (params.id !== undefined){
+       const data = await getWorkoutExercise(params.id).then((data) => data);
+        console.log(data)
+        setCurrentWorkoutExercise({
+            workout: data.workout.id,
+            exercise: data.exercise.id,
+            reps: data.reps,
+            sets: data.sets
+        
+        
+          })
+      }})()
+  },[])
+
 
   return (
     <form className="workoutExerciseForm">
       <h2 className="workoutExerciseForm__name">Fill Out Workout Log</h2>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="">Title: </label>
-          <input
-            type="text"
-            name="title"
-            required
-            autoFocus
-            className="form-control"
-            value={currentWorkoutExercise.title}
-            onChange={updateWorkoutExerciseState}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="workout">Workout Type:</label>
+          <label htmlFor="workout">Exercise:</label>
           <select
-            value={parseInt(currentWorkoutExercise?.exercise) || ""}
-            id="exercise"
-            name="category"
+            value={currentWorkoutExercise?.exercise}
+            name="exercise"
             className="form-control form-control-sm"
-            onChange={(e) => updateWorkoutExerciseState(parseInt(e.target.value), "exercise")}
+            onChange={updateWorkoutExerciseState}
           >
             <option value="0">Select a Workout Type</option>
-            {exercises.map((e) => (
-              <option key={e.id} id={e.id} value={e.id}>
+            {exercises && exercises.map((e) => {
+             return <option key={e.id} value={e.id}>
                 {/* the value of e.id here is associated with the select value */}
-                {e?.category?.type}
+                {e?.name}
               </option>
               //just creating a new array populated with the results of of the function called
-            ))}
+            })}
           </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="">Exercises Done </label>
-          <input
-            type="text"
-            name="Exercises done:"
-            required
-            autoFocus
-            className="form-control"
-            value={currentWorkoutExercise.exercise}
-            onChange={updateWorkoutExerciseState}
-          />
         </div>
         <div className="form-group">
           <label htmlFor="">Reps: </label>
           <input
-            type="int"
+            type="text"
             name="reps"
             required
             autoFocus
@@ -111,11 +89,11 @@ export const WorkoutExerciseForm = () => {
             value={currentWorkoutExercise.reps}
             onChange={updateWorkoutExerciseState}
           />
-        </div> 
+        </div>
         <div className="form-group">
           <label htmlFor="">Sets: </label>
           <input
-            type="int"
+            type="text"
             name="sets"
             required
             autoFocus
@@ -135,22 +113,25 @@ export const WorkoutExerciseForm = () => {
           evt.preventDefault();
 
           const workoutExercise = {
-            workout: parseInt(currentWorkoutExercise.workout),
-            exercise: parseInt(currentWorkoutExercise.exercise),
-            reps: currentWorkoutExercise.title,
-            sets: currentWorkoutExercise.sets
+            exercise: currentWorkoutExercise.exercise,
+            reps: currentWorkoutExercise.reps,
+            sets: currentWorkoutExercise.sets,
           };
+          if (params.id !== undefined){
+            //   do PUT
+          } else {
 
+         
           // Send POST request to your API
           createWorkoutExercise(workoutExercise).then(() =>
-            history.push("/workoutExercises/new")
+            history.push("/workoutExercises")
           );
+        }
         }}
         className="btn btn-primary"
       >
         Create
       </button>
-
     </form>
   );
 };

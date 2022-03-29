@@ -11,8 +11,8 @@ export const CardioList = () => {
         }
     })
       .then((res) => res.json())
-      .then((agesArray) => {
-        setCardios(agesArray);
+      .then((categoriesArray) => {
+        setCardios(categoriesArray);
       });
   }, []);
 
@@ -23,7 +23,7 @@ export const CardioList = () => {
           <Link to={`/details/${cardioObject.id}`}>
             <h1 key={JSON.stringify(cardioObject)}>
               <h1>{cardioObject?.name}</h1>
-            <img src={cardioObject?.image} height="400" width="300" /></h1>{" "}
+            <img src={cardioObject?.image} height="500" width="450" /></h1>{" "}
           </Link> 
         );
       })}

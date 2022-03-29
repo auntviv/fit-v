@@ -8,7 +8,7 @@ export const NavBar = (props) => {
     return (
         <ul className="navbar">
               <li className="navbar__item active">
-              <Link className="nav-link" to= "/workoutExercises/new">Home</Link>
+              <Link className="nav-link" to= "/workoutExercises">Home</Link>
               </li>
             <li className="navbar__item active">
             <Link className="nav-link" to= "/yoga">Yoga </Link>

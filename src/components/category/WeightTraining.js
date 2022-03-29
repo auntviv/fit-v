@@ -11,8 +11,8 @@ export const WeightTrainingList = () => {
         }
     })
       .then((res) => res.json())
-      .then((agesArray) => {
-        setWeightTraining(agesArray);
+      .then((categoriesArray) => {
+        setWeightTraining(categoriesArray);
       });
   }, []);
 
@@ -23,7 +23,7 @@ export const WeightTrainingList = () => {
           <Link to={`/details/${weightTrainingObject.id}`}>
             <h1 key={JSON.stringify(weightTrainingObject)}>
               <h1>{weightTrainingObject?.name}</h1>
-            <img src={weightTrainingObject?.image} height="400" width="300" /></h1>{" "}
+            <img src={weightTrainingObject?.image} height="500" width="450" /></h1>{" "}
           </Link> 
         );
       })}

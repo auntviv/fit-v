@@ -11,8 +11,8 @@ export const YogaList = () => {
         }
     })
       .then((res) => res.json())
-      .then((agesArray) => {
-        setYoga(agesArray);
+      .then((categoriesArray) => {
+        setYoga(categoriesArray);
       });
   }, []);
 
@@ -23,7 +23,7 @@ export const YogaList = () => {
           <Link to={`/details/${yogaObject.id}`}>
             <h1 key={JSON.stringify(yogaObject)}>
               <h1>{yogaObject?.name}</h1>
-              <img src={yogaObject?.image} height="400" width="300" /></h1>{" "}
+              <img src={yogaObject?.image} height="500" width="450" /></h1>{" "}
           </Link> 
         );
       })}

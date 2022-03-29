@@ -7,6 +7,8 @@ import { CardioList } from "./category/Cardio.js";
 import { WeightTrainingList } from "./category/WeightTraining.js";
 import { YogaList } from "./category/Yoga.js";
 import Details from "./Details/Details.js";
+import { WorkoutExerciseList } from "./WorkoutExercise.js/WorkoutExerciseList.js";
+
 
 export const ApplicationViews = () => {
   const [authorizedUser, setAuthorizedUser] = useState(0);
@@ -29,6 +31,12 @@ export const ApplicationViews = () => {
       >
         <Route>
           <NavBar />
+        </Route>
+        <Route exact path="/workoutExercises">
+          <WorkoutExerciseList />
+        </Route>
+        <Route exact path= "/workoutExercises/edit/:id(\d+)">
+          <WorkoutExerciseForm />
         </Route>
         <Route exact path="/workoutExercises/new">
           <WorkoutExerciseForm />
