@@ -8,7 +8,7 @@ import { WeightTrainingList } from "./category/WeightTraining.js";
 import { YogaList } from "./category/Yoga.js";
 import Details from "./Details/Details.js";
 import { WorkoutExerciseList } from "./WorkoutExercise.js/WorkoutExerciseList.js";
-
+import { UpdateWorkoutExerciseForm } from "./WorkoutExercise.js/UpdateWorkoutExercise.js";
 
 export const ApplicationViews = () => {
   const [authorizedUser, setAuthorizedUser] = useState(0);
@@ -35,8 +35,8 @@ export const ApplicationViews = () => {
         <Route exact path="/workoutExercises">
           <WorkoutExerciseList />
         </Route>
-        <Route exact path= "/workoutExercises/edit/:id(\d+)">
-          <WorkoutExerciseForm />
+        <Route exact path= "/workoutExercises/edit/:workoutExerciseId(\d+)">
+          <UpdateWorkoutExerciseForm />
         </Route>
         <Route exact path="/workoutExercises/new">
           <WorkoutExerciseForm />

@@ -34,9 +34,6 @@ export const WorkoutExerciseList = (props) => {
             <div className="workoutExercise__exercises">
                You worked on your {WorkoutExerciseObject.exercise?.category?.type} today.
             </div>
-            <div className="workoutExercise__workouts">
-                This workout was {WorkoutExerciseObject.workout.calories} calories.
-            </div>
             <div className="workoutExercise__sets">
             {WorkoutExerciseObject.sets} sets.
             </div>
@@ -45,7 +42,10 @@ export const WorkoutExerciseList = (props) => {
             </div>
               <button
                 className="btn-primary"
-                onClick={() => deleteWorkoutExercise}
+                onClick={() => deleteWorkoutExercise(WorkoutExerciseObject.id).then(res => setWorkoutExercises(res))
+                    .then(() => history.push("/workoutExercises"))
+                }
+                
               >
                 Delete
               </button>
@@ -63,13 +63,4 @@ export const WorkoutExerciseList = (props) => {
       </ul>
     </>
   );
-  // return (
-
-  //     <button className="btn btn-2 btn-sep icon-create"
-  // onClick={() => {
-  //     history.push({ pathname: "/workoutExercises/new" })
-  // }}
-  // >Register New Log</button>
-
-  // )
 };
